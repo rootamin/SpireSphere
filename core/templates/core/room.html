@@ -77,7 +77,7 @@
 {#                            rerum consectetur, voluptatem repudiandae eum ea porro cupiditate provident nulla, deserunt, ab ipsum#}
 {#                            corporis laboriosam deleniti molestias?#}
 {#                        </div>#}
-                        <span class="room__topics">{{ room.topic }}</span>
+                        <span class="room__topics"><a href="{% url 'home' %}?q={{ room.topic }}">{{ room.topic }}</a></span>
                     </div>
                     <div class="room__conversation">
                         <div class="threads scroll">
@@ -144,5 +144,4 @@
             <!--  End -->
         </div>
     </main>
-    <script src="../../../static/js/script.js"></script>
 {% endblock %}
