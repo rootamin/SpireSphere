@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from .models import Room, Topic, Message, Profile
-from .forms import RoomForm, UserForm, RegistrationForm
+from .forms import RoomForm, UserForm, RegistrationForm, ProfileForm
 
 
 # Create your views here.
@@ -182,13 +182,33 @@ def updateUser(request):
     user = request.user
     form = UserForm(instance=user)
 
+    try:
+        user_profile = Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+        return HttpResponse("Invalid User Profile")
+
     if request.method == "POST":
-        form = UserForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
+        user_form = UserForm(request.POST, instance=user)
+        profile_form = ProfileForm(request.POST, instance=user_profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            finaluser = user_form.save()
+            profile = profile_form.save(commit=False)
+            profile.user = finaluser
+
+            if 'image' in request.FILES:
+                profile.image = request.FILES['image']
+            profile.save()
             return redirect('user-profile', pk=user.id)
 
-    context = {'form': form}
+        else:
+            messages.warning(request, "An error has occured")
+
+    else:
+        user_form = UserForm(instance=user)
+        profile_form = ProfileForm(request.POST, instance=user_profile)
+
+    context = {'user_form': user_form, 'profile_form': profile_form}
     return render(request, 'core/update_user.html', context)
 
 def topicsPage(request):

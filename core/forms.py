@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Room
+from .models import Room, Profile
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -13,11 +13,17 @@ class RoomForm(ModelForm):
 
 
 class UserForm(ModelForm):
-    image = forms.ImageField(required=False)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'image']
+        fields = ['username', 'email']
+
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
+
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
