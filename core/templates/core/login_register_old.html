@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if page == "login" %} {# Checks between 2 register and login variables #}
+        <div>
+            <form method="post" action="">
+                {% csrf_token %}
+
+                <label>Username:</label>
+                <input type="text" name="username" placeholder="Enter Username" />
+
+                <label>Password:</label>
+                <input type="password" name="password" placeholder="Enter Password" />
+
+                <input type="submit" value="Login" />
+            </form>
+            <p>Haven't Signed Up Yet?</p>
+            <a href="{% url 'register' %}">SignUp</a>
+        </div>
+
+    {% else %}
+
+        <div>
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <input type="submit" value="Register" />
+            </form>
+            <p>Already Signed Up</p>
+            <a href="{% url 'login' %}">LogIn</a>
+        </div>
+    {% endif %}
+
+{% endblock %}
