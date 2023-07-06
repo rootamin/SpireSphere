@@ -57,7 +57,7 @@ def registerPage(request):
             profile = Profile(user=prof_instance)
             profile.save()
             login(request, user) # automatically login the user after registration
-            messages.success(request, f"Registration was successful. logged in as {user.username}")
+            messages.success(request, f"Registration was successful. logged in as {user.username}. Be sure to complete your profile!")
             return redirect('home')
         else:
             messages.error(request, 'An error occurred during registration.')
