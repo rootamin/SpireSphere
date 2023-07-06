@@ -13,9 +13,11 @@ class RoomForm(ModelForm):
 
 
 class UserForm(ModelForm):
+    image = forms.ImageField(required=False)
+
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username', 'email', 'image']
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)

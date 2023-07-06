@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-from .models import Room, Topic, Message
+from .models import Room, Topic, Message, Profile
 from .forms import RoomForm, UserForm, RegistrationForm
 
 
@@ -53,6 +53,9 @@ def registerPage(request):
             user = form.save()
             user.username = user.username.lower() # lowercases the username
             user.save()
+            prof_instance = User.objects.get(username=user.username)
+            profile = Profile(user=prof_instance)
+            profile.save()
             login(request, user) # automatically login the user after registration
             messages.success(request, f"Registration was successful. logged in as {user.username}")
             return redirect('home')
