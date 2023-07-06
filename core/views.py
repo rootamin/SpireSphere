@@ -177,6 +177,7 @@ def deleteMessage(request, pk):
         return redirect('home')
     return render(request, "core/delete.html", {'obj': message})
 
+
 @login_required(login_url="login")
 def updateUser(request):
     user = request.user
