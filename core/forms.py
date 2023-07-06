@@ -22,7 +22,7 @@ class UserForm(ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['image']
+        fields = ['about', 'image']
 
 
 class RegistrationForm(UserCreationForm):
