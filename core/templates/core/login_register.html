@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
+{% block title %}{% if page == 'login' %} | Login{% else %} | Register{% endif %}{% endblock %}
+
 {% block content %}
     <main class="auth layout">
 
@@ -65,7 +67,7 @@
 
             <div class="container">
                 <div class="layout__body">
-                    <h2 class="auth__tagline">Hoping You A Great Time Here!</h2>
+                    <h2 class="auth__tagline">Hoping For You To Have A Great Time Here!</h2>
 
                     <form class="form" action="" method="post">
                         {% csrf_token %}
